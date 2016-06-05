@@ -49,7 +49,7 @@ use Symfony\Component\Translation\Loader\ArrayLoader;
  * @property-read string $timezoneName
  * @property-read string $tzName
  */
-class Carbon extends DateTime
+class Carbon extends DateTime implements \JsonSerializable
 {
     /**
      * The day constants.
@@ -2784,5 +2784,10 @@ class Carbon extends DateTime
         $dt = $dt ?: static::now($this->tz);
 
         return $this->format('md') === $dt->format('md');
+    }
+
+    public function jsonSerialize()
+    {
+        return $this->__toString();
     }
 }
